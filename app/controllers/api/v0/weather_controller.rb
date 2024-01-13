@@ -5,7 +5,6 @@ class  Api::V0::WeatherController < ApplicationController
     lon = geocoded_location.longitude
 
     forecast = WeatherFacade.new(lat, lon).forecast
-    # binding.pry
-
+    render json: ForecastSerializer.new(forecast)
   end
 end
