@@ -4,12 +4,19 @@ class Forecast
   def initialize(data)
     @id = nil
     @current_weather = CurrentWeather.new(data[:current])
-    @daily_weather = (data[:forecast][:forecastday]).map do |day|
-      DailyWeather.new(day)
-    end
-    
-    @hourly_weather = (data[:forecast][:forecastday].first[:hour]).map do |hour|
+    @daily_weather = get_daily_weather(data)
+    @hourly_weather = get_hourly_weather(data)
+  end
+  
+  def get_hourly_weather(data)
+    (data[:forecast][:forecastday].first[:hour]).map do |hour|
       HourlyWeather.new(hour)
+    end 
+  end
+  
+  def get_daily_weather(data)
+    (data[:forecast][:forecastday]).map do |day|
+      DailyWeather.new(day)
     end
   end
 end
