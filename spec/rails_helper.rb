@@ -15,6 +15,10 @@ VCR.configure do |config|
   config.filter_sensitive_data("<map_quest>") {
     Rails.application.credentials.map_quest[:key]
   }
+
+  config.filter_sensitive_data("<weather_api>") {
+    Rails.application.credentials.weather_api[:key]
+  }
   config.configure_rspec_metadata!
   config.default_cassette_options = { re_record_interval: 365.days}
 end
