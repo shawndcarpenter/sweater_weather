@@ -5,8 +5,4 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :password, presence: true
   validates :password_confirmation, presence: true
-
-  def create_api_key
-    self.api_key = SecureRandom.hex
-  end
 end
