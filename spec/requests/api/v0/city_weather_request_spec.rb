@@ -54,6 +54,18 @@ RSpec.describe "Find weather for a city", type: :request do
       expect(result[:data][:attributes]).to have_key(:daily_weather)
       expect(result[:data][:attributes][:daily_weather]).to be_a Array
 
+      expect(result[:data][:attributes]).to_not have_key(:location)
+
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:last_updated_epoch)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:temp_c)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:wind_mph)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:wind_kph)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:wind_degree)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:wind_dir)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:pressure_mb)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:pressure_in)
+      expect(result[:data][:attributes][:current_weather]).to_not have_key(:precip_in)
+
       expect(result[:data][:attributes][:daily_weather].length).to eq(5)
 
       result[:data][:attributes][:daily_weather].each do |day|
@@ -82,6 +94,14 @@ RSpec.describe "Find weather for a city", type: :request do
 
         expect(day).to have_key(:icon)
         expect(day[:icon]).to be_a String
+
+        expect(day).to_not have_key(:date_epoch)
+        expect(day).to_not have_key(:day)
+        expect(day).to_not have_key(:moonset)
+        expect(day).to_not have_key(:moonrise)
+        expect(day).to_not have_key(:moon_phase)
+        expect(day).to_not have_key(:moon_illumination)
+        expect(day).to_not have_key(:hour)
       end
 
       expect(result[:data][:attributes]).to have_key(:hourly_weather)
@@ -102,6 +122,21 @@ RSpec.describe "Find weather for a city", type: :request do
 
         expect(hour).to have_key(:icon)
         expect(hour[:icon]).to be_a String
+
+        expect(hour).to_not have_key(:time_epoch)
+        expect(hour).to_not have_key(:temp_c)
+        expect(hour).to_not have_key(:temp_f)
+        expect(hour).to_not have_key(:is_day)
+        expect(hour).to_not have_key(:code)
+        expect(hour).to_not have_key(:wind_mph)
+        expect(hour).to_not have_key(:wind_kph)
+        expect(hour).to_not have_key(:wind_degree)
+        expect(hour).to_not have_key(:wind_dir)
+        expect(hour).to_not have_key(:pressure_in)
+        expect(hour).to_not have_key(:pressure_mb)
+        expect(hour).to_not have_key(:precip_in)
+        expect(hour).to_not have_key(:precip_mm)
+        expect(hour).to_not have_key(:snow_cm)
       end
     end
   end
