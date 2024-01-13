@@ -26,20 +26,20 @@ class  Api::V0::UsersController < ApplicationController
   end
 
   def passwords_must_match_response
-    render json: ErrorSerializer.new(ErrorMessage.new("Password and password confirmation must match", 400))
-    .serialize_json, status: 400
+    render json: ErrorSerializer.new(ErrorMessage.new("Password and password confirmation must match",422))
+    .serialize_json, status:422
   end
 
   def missing_data_response(params)
     if !params[:password] && !params[:password_confirmation]
-      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password can't be blank, password confirmation can't be blank", 400))
-      .serialize_json, status: 400
+      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password can't be blank, password confirmation can't be blank",422))
+      .serialize_json, status:422
     elsif !params[:password] 
-      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password can't be blank", 400))
-      .serialize_json, status: 400
+      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password can't be blank",422))
+      .serialize_json, status:422
     elsif !params[:password_confirmation]
-      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password confirmation can't be blank", 400))
-      .serialize_json, status: 400
+      render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: Password confirmation can't be blank",422))
+      .serialize_json, status:422
     end
   end
 end
