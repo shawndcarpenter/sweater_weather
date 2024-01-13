@@ -56,7 +56,7 @@ RSpec.describe "POST to users", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Password and password confirmation must match")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Password confirmation doesn't match Password")
     end
 
     it "must have password and confirmation" do
@@ -72,7 +72,7 @@ RSpec.describe "POST to users", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Validation failed: password can't be blank, password confirmation can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Password can't be blank, Password can't be blank, Password confirmation can't be blank")
     end
 
     it "must have password" do
@@ -89,7 +89,7 @@ RSpec.describe "POST to users", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Validation failed: password can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Password can't be blank, Password can't be blank")
     end
 
     it "must have password confirmation" do
@@ -106,7 +106,7 @@ RSpec.describe "POST to users", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Validation failed: password confirmation can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Password confirmation can't be blank")
     end
 
     it "must have email" do
@@ -123,7 +123,7 @@ RSpec.describe "POST to users", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Validation failed: email can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Email can't be blank")
     end
 
     it "email must be unique" do
@@ -137,7 +137,7 @@ RSpec.describe "POST to users", type: :request do
       post "/api/v0/users", params: user_params
 
       expect(response).to_not be_successful
-      expect(response.status).to eq(400)
+      expect(response.status).to eq(422)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
