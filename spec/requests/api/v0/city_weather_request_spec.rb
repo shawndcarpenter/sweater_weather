@@ -15,6 +15,7 @@ RSpec.describe "Find weather for a city", type: :request do
       expect(result[:data]).to be_a Hash
 
       expect(result[:data]).to have_key(:id)
+      expect(result[:data][:id]).to eq(nil)
 
       expect(result[:data]).to have_key(:type)
       expect(result[:data][:type]).to be_a String
@@ -27,7 +28,28 @@ RSpec.describe "Find weather for a city", type: :request do
       expect(result[:data][:attributes][:current_weather]). to be_a Hash
 
       expect(result[:data][:attributes][:current_weather]).to have_key(:last_updated)
+      expect(result[:data][:attributes][:current_weather][:last_updated]). to be_a String
+
       expect(result[:data][:attributes][:current_weather]).to have_key(:temperature)
+      expect(result[:data][:attributes][:current_weather][:temperature]). to be_a Float
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:feels_like)
+      expect(result[:data][:attributes][:current_weather][:feels_like]). to be_a Float
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:humidity)
+      expect(result[:data][:attributes][:current_weather][:humidity]). to be_a Integer
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:uvi)
+      expect(result[:data][:attributes][:current_weather][:uvi]). to be_a Float
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:visibility)
+      expect(result[:data][:attributes][:current_weather][:visibility]). to be_a Float
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:condition)
+      expect(result[:data][:attributes][:current_weather][:condition]). to be_a String
+
+      expect(result[:data][:attributes][:current_weather]).to have_key(:icon)
+      expect(result[:data][:attributes][:current_weather][:icon]). to be_a String
 
       expect(result[:data][:attributes]).to have_key(:daily_weather)
       expect(result[:data][:attributes][:daily_weather]).to be_a Array
@@ -52,6 +74,9 @@ RSpec.describe "Find weather for a city", type: :request do
         expect(day).to have_key(:min_temp)
         expect(day[:min_temp]).to be_a Float
 
+        expect(day).to have_key(:visibility)
+        expect(day[:visibility]).to be_a Float
+
         expect(day).to have_key(:condition)
         expect(day[:condition]).to be_a String
 
@@ -60,6 +85,7 @@ RSpec.describe "Find weather for a city", type: :request do
       end
 
       expect(result[:data][:attributes]).to have_key(:hourly_weather)
+      expect(result[:data][:attributes][:hourly_weather]).to be_a Array
       expect(result[:data][:attributes][:hourly_weather].length).to eq(24)
 
       result[:data][:attributes][:hourly_weather].each do |hour|
@@ -71,11 +97,11 @@ RSpec.describe "Find weather for a city", type: :request do
         expect(hour).to have_key(:temperature)
         expect(hour[:temperature]).to be_a Float
 
-        expect(day).to have_key(:conditions)
-        expect(day[:conditions]).to be_a String
+        expect(hour).to have_key(:conditions)
+        expect(hour[:conditions]).to be_a String
 
-        expect(day).to have_key(:icon)
-        expect(day[:icon]).to be_a String
+        expect(hour).to have_key(:icon)
+        expect(hour[:icon]).to be_a String
       end
     end
   end
