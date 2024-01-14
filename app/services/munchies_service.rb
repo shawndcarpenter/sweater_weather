@@ -6,7 +6,7 @@ class MunchiesService
   end
 
   def get_munchies(destination, food)
-    response = conn.get("?location=#{location}&category=#{food}&term=restaurants")
+    response = conn.get("?location=#{location}&term=#{food},restaurants")
     JSON.parse(response.body, symbolize_names: true)
   end
 end

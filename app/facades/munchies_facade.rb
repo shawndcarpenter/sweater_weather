@@ -7,6 +7,7 @@ class MunchiesFacade
   def munchies
     service = MunchiesService.new
     json = service.find_munchies(@destination, @food)
-    @munchies = munchies.new(json)
+    
+    @business = Business.new(json[:businesses].first)
   end
 end
