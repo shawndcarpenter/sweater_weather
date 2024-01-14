@@ -6,6 +6,10 @@ class  Api::V0::WeatherController < ApplicationController
       ForecastSerializer.new(get_forecast(geo.latitude, 
                                           geo.longitude))
   end
+
+  def munchies
+    munchies = MunchiesFacade.new(params[:destination], params[:food]).munchies
+  end
   
   private
   

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v0 do
       get "/forecast", to: "weather#forecast"
+
+      get "/munchies", to: "weather#munchies"
     end
   end
   # Defines the root path route ("/")

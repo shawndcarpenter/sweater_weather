@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "will return munchies", type: :request do
+RSpec.describe "munchies", type: :request do
   describe "happy paths" do
-    it "will get all parameters", :vcr do
+    it "will get all parameters for munchies", :vcr do
       
-      get "/api/v1/munchies?destination=pueblo,co&food=italian"
+      get "/api/v0/munchies?destination=pueblo,co&food=italian"
 
       expect(response).to be_successful
       
