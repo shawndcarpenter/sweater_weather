@@ -8,7 +8,9 @@ class  Api::V0::WeatherController < ApplicationController
   end
 
   def munchies
-    munchies = MunchiesFacade.new(params[:destination], params[:food]).munchies
+    geo = get_geocoded_location(params[:destination])
+
+    munchies = MunchiesFacade.new(params[:destination], params[:food], geo).munchie
   end
   
   private
