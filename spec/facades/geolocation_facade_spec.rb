@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe GeolocationFacade do
+RSpec.describe GeolocationFacade do
   context "Geolocation", :vcr do
     it "exists" do
       facade = GeolocationFacade.new("pueblo,co")

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe WeatherFacade do
+RSpec.describe WeatherFacade do
   context "weather", :vcr do
     it "exists" do
       facade = WeatherFacade.new(39.10713, -84.50413)
