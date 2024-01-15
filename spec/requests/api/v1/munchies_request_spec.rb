@@ -4,7 +4,7 @@ RSpec.describe "munchies", type: :request do
   describe "happy paths" do
     it "will get all parameters for munchies", :vcr do
       
-      get "/api/v0/munchies?destination=pueblo,co&food=italian"
+      get "/api/v1/munchies?destination=pueblo,co&food=italian"
 
       expect(response).to be_successful
       

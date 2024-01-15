@@ -7,16 +7,7 @@ class  Api::V0::WeatherController < ApplicationController
                                           geo.longitude))
   end
 
-  def munchies
-    geo = get_geocoded_location(params[:destination])
-    munchie = MunchiesFacade.new(params[:destination], params[:food], geo).munchie
-
-    render json: 
-      MunchieSerializer.new(munchie)
-  end
-  
-  private
-  
+  private 
   def get_geocoded_location(location)
     geocoded_location = GeolocationFacade.new(location).geocode
   end
