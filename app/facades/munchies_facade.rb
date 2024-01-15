@@ -6,8 +6,9 @@ class MunchiesFacade
 
   def munchies
     service = MunchiesService.new
-    json = service.find_munchies(@destination, @food)
-    
+    json = service.get_munchies(@destination, @food)
+    # binding.pry
     @business = Business.new(json[:businesses].first)
+    binding.pry
   end
 end
