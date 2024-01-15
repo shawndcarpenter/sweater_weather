@@ -7,7 +7,7 @@ class WeatherFacade
   def forecast
     service = WeatherService.new
     json = service.find_weather(@latitude, @longitude)
-    # binding.pry
+  
     @forecast = Forecast.new(json)
   end
 end
