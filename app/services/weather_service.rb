@@ -5,8 +5,12 @@ class WeatherService
     end
   end
 
-  def find_weather(latitude, longitude)
-    response = conn.get("forecast.json?q=#{latitude},#{longitude}&days=5")
+  def get_url(url)
+    response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def find_weather(latitude, longitude)
+    get_url("forecast.json?q=#{latitude},#{longitude}&days=5")
   end
 end

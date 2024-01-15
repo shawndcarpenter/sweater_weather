@@ -10,7 +10,7 @@ RSpec.describe "munchies", type: :request do
       
       expect(response.status).to eq(200)
       result = JSON.parse(response.body, symbolize_names: true)
-      binding.pry
+
       expect(result).to have_key(:data)
       expect(result[:data]).to be_a Hash
 

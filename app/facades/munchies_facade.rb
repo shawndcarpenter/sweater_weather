@@ -22,8 +22,8 @@ class MunchiesFacade
   end
 
   def get_business(destination, food)
-    business_service = MunchiesService.new
-    business_json = business_service.get_munchies(destination, food)
+    business_service = BusinessService.new
+    business_json = business_service.get_businesses(destination, food)
     business = business_json[:businesses].first
 
     Business.new(business)

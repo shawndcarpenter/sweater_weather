@@ -5,8 +5,12 @@ class LocationService
     end
   end
 
-  def find_lat_and_lon(location)
-    response = conn.get("?location=#{location}")
+  def get_url(url)
+    response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def find_lat_and_lon(location)
+    get_url("?location=#{location}")
   end
 end
