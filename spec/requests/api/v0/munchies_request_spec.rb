@@ -31,25 +31,25 @@ RSpec.describe "munchies", type: :request do
       expect(result[:data][:attributes][:forecast]). to be_a Hash
 
       expect(result[:data][:attributes][:forecast]).to have_key(:summary)
-      expect(result[:data][:attributes][:summary]). to be_a Hash
+      expect(result[:data][:attributes][:forecast][:summary]). to be_a String
 
       expect(result[:data][:attributes][:forecast]).to have_key(:temperature)
-      expect(result[:data][:attributes][:temperature]). to be_a Hash
+      expect(result[:data][:attributes][:forecast][:temperature]). to be_a Float
 
       expect(result[:data][:attributes]).to have_key(:restaurant)
       expect(result[:data][:attributes][:restaurant]). to be_a Hash
 
       expect(result[:data][:attributes][:restaurant]).to have_key(:name)
-      expect(result[:data][:attributes][:name]). to be_a String
+      expect(result[:data][:attributes][:restaurant][:name]). to be_a String
 
       expect(result[:data][:attributes][:restaurant]).to have_key(:address)
-      expect(result[:data][:attributes][:address]). to be_a String
+      expect(result[:data][:attributes][:restaurant][:address]). to be_a String
 
       expect(result[:data][:attributes][:restaurant]).to have_key(:rating)
-      expect(result[:data][:attributes][:rating]). to be_a Float
+      expect(result[:data][:attributes][:restaurant][:rating]). to be_a Float
 
       expect(result[:data][:attributes][:restaurant]).to have_key(:reviews)
-      expect(result[:data][:attributes][:reviews]). to be_a Integer
+      expect(result[:data][:attributes][:restaurant][:reviews]). to be_a Integer
     end
   end
 end
