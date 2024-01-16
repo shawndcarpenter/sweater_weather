@@ -1,11 +1,12 @@
 class  Api::V0::RoadTripsController < ApplicationController
   def create
-    destination_geo = get_geocoded_location(params[:destination])
     user = User.find_by(api_key: params[:api_key])
-    # binding.pry
+
     if user
-      get_forecast(destination_geo.latitude, destination_geo.longitude)
-      
+      road_trip = RoadTripFacade.new(params[:origin], params[:destination]).road_trip
+
+      render json: 
+        RoadTripSerializer.new(road_trip), status: 200
     else
     end
   end
