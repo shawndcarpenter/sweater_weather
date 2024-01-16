@@ -16,12 +16,10 @@ RSpec.describe "User login", type: :request do
     end
 
     it "will login a user", :vcr do
-      user_login_params = {
-                  "email": "paul@example.com",
-                  "password": "password"
-                  }
-      
-      post "/api/v0/sessions", params: user_login_params
+      post "/api/v0/sessions", params: {
+        "email": "paul@example.com",
+        "password": "password"
+        }, as: :json
 
       expect(response).to be_successful
       
@@ -56,15 +54,12 @@ RSpec.describe "User login", type: :request do
 
   describe "sad paths" do
     before :each do
-      user_params = {
+
+      post "/api/v0/users", params: {
         "email": "paul@example.com",
         "password": "password",
         "password_confirmation": "password"
-        }
-
-      post "/api/v0/users", params: user_params
-
-      @user = User.find_by(email: "paul@example.com")
+        }, as: :json
 
     end
   end
@@ -82,7 +77,7 @@ RSpec.describe "User login", type: :request do
   end
 
   it "must have email" do
-    post "/api/v0/sessions", params: {"password": "password"}
+    post "/api/v0/sessions", params: {"password": "password"}, as: :json
 
     expect(response).to_not be_successful
     expect(response.status).to eq(422)
@@ -94,7 +89,7 @@ RSpec.describe "User login", type: :request do
   end
 
   it "must have password" do
-    post "/api/v0/sessions", params: {"email": "paul@example.com"}
+    post "/api/v0/sessions", params: {"email": "paul@example.com"}, as: :json
 
     expect(response).to_not be_successful
     expect(response.status).to eq(422)
@@ -106,7 +101,7 @@ RSpec.describe "User login", type: :request do
   end
 
   it "must have valid email" do
-    post "/api/v0/sessions", params: {"email": "not_paul@example.com", "password": "password"}
+    post "/api/v0/sessions", params: {"email": "not_paul@example.com", "password": "password"}, as: :json
 
     expect(response).to_not be_successful
     expect(response.status).to eq(422)
@@ -118,7 +113,7 @@ RSpec.describe "User login", type: :request do
   end
 
   it "must have valid password" do
-    post "/api/v0/sessions", params: {"email": "paul@example.com", "password": "not_password"}
+    post "/api/v0/sessions", params: {"email": "paul@example.com", "password": "not_password"}, as: :json
 
     expect(response).to_not be_successful
     expect(response.status).to eq(422)

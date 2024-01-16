@@ -3,13 +3,12 @@ require 'rails_helper'
 RSpec.describe "POST to users", type: :request do
   describe "happy paths" do
     it "will post a user", :vcr do
-      user_params = {
-                  "email": "whatever@example.com",
-                  "password": "password",
-                  "password_confirmation": "password"
-                  }
       
-      post "/api/v0/users", params: user_params
+      post "/api/v0/users", params: {
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+        }, as: :json
 
       expect(response).to be_successful
       
@@ -42,13 +41,12 @@ RSpec.describe "POST to users", type: :request do
 
   describe "sad path testing" do
     it "must have matching password and confirmation" do
-      user_params = {
+
+      post "/api/v0/users", params: {
         "email": "whatever@example.com",
         "password": "password",
         "password_confirmation": "not_password"
-        }
-
-      post "/api/v0/users", params: user_params
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -60,11 +58,10 @@ RSpec.describe "POST to users", type: :request do
     end
 
     it "must have password and confirmation" do
-      user_params = {
-        "email": "whatever@example.com"
-        }
 
-      post "/api/v0/users", params: user_params
+      post "/api/v0/users", params: {
+        "email": "whatever@example.com"
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -76,12 +73,11 @@ RSpec.describe "POST to users", type: :request do
     end
 
     it "must have password" do
-      user_params = {
+
+      post "/api/v0/users", params: {
         "email": "whatever@example.com",
         "password_confirmation": "not_password"
-        }
-
-      post "/api/v0/users", params: user_params
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -93,12 +89,11 @@ RSpec.describe "POST to users", type: :request do
     end
 
     it "must have password confirmation" do
-      user_params = {
+
+      post "/api/v0/users", params: {
         "email": "whatever@example.com",
         "password": "password"
-        }
-
-      post "/api/v0/users", params: user_params
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -110,12 +105,10 @@ RSpec.describe "POST to users", type: :request do
     end
 
     it "must have email" do
-      user_params = {
+      post "/api/v0/users", params: {
         "password": "password",
         "password_confirmation": "password"
-        }
-
-      post "/api/v0/users", params: user_params
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
@@ -127,14 +120,17 @@ RSpec.describe "POST to users", type: :request do
     end
 
     it "email must be unique" do
-      user_params = {
-                  "email": "whatever@example.com",
-                  "password": "password",
-                  "password_confirmation": "password"
-                  }
 
-      post "/api/v0/users", params: user_params
-      post "/api/v0/users", params: user_params
+      post "/api/v0/users", params: {
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+        }, as: :json
+      post "/api/v0/users", params: {
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+        }, as: :json
 
       expect(response).to_not be_successful
       expect(response.status).to eq(422)

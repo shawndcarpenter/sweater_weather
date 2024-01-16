@@ -20,6 +20,7 @@ class  Api::V0::RoadTripsController < ApplicationController
   end
   
   private
+  
   def invalid_locations_response
     render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: origin and destination must be real places", 422))
     .serialize_json, status: 422

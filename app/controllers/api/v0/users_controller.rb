@@ -12,6 +12,7 @@ class  Api::V0::UsersController < ApplicationController
   end
 
   private
+  
   def create_api_key
     SecureRandom.hex
   end
