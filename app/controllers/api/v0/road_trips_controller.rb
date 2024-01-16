@@ -46,14 +46,6 @@ class  Api::V0::RoadTripsController < ApplicationController
     .serialize_json, status: 422
   end
 
-  def get_geocoded_location(location)
-    geocoded_location = GeolocationFacade.new(location).geocode
-  end
-
-  def get_forecast(lat, lon)
-    WeatherFacade.new(lat, lon).forecast
-  end
-
   def not_allowed_response
     render json: ErrorSerializer.new(ErrorMessage.new("Unauthorized: please provide a valid api_key", 401))
     .serialize_json, status: 401

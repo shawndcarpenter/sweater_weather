@@ -8,7 +8,7 @@ class WeatherAtEta
   end
 
   def readable_datetime(arrival_time)
-    time_array = Time.at(arrival_time).to_fs.split(" ")
+    time_array = arrival_time.to_fs.split(" ")
     time_array[0] + " " + time_array[1]
   end
 end

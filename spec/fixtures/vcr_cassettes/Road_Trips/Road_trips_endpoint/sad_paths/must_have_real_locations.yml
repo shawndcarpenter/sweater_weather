@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.mapquestapi.com/geocoding/v1/address?location=wfowenoeneroifnionf1233
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Key:
+      - "<map_quest>"
+      User-Agent:
+      - Faraday v2.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 16 Jan 2024 01:30:30 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '684'
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-2628000:
+      - '1000000000'
+      X-Ratelimit-Remaining-2628000:
+      - '999999943'
+      Ratelimit-Limit:
+      - '1000000000'
+      Ratelimit-Remaining:
+      - '999999943'
+      Ratelimit-Reset:
+      - '203370'
+      X-Powered-By:
+      - MapQuest
+      X-Request-Id:
+      - d58a0c40-b40e-11ee-a1f9-3940980a923d
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"2ac-stogbPHIib9+vnEPEFZBgmRFhvk"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJpbmZvIjp7InN0YXR1c2NvZGUiOjAsImNvcHlyaWdodCI6eyJ0ZXh0IjoiwqkgMjAyNCBNYXBRdWVzdCwgSW5jLiIsImltYWdlVXJsIjoiaHR0cDovL2FwaS5tcWNkbi5jb20vcmVzL21xbG9nby5naWYiLCJpbWFnZUFsdFRleHQiOiLCqSAyMDI0IE1hcFF1ZXN0LCBJbmMuIn0sIm1lc3NhZ2VzIjpbXX0sIm9wdGlvbnMiOnsibWF4UmVzdWx0cyI6LTEsImlnbm9yZUxhdExuZ0lucHV0IjpmYWxzZX0sInJlc3VsdHMiOlt7InByb3ZpZGVkTG9jYXRpb24iOnsibG9jYXRpb24iOiJ3Zm93ZW5vZW5lcm9pZm5pb25mMTIzMyJ9LCJsb2NhdGlvbnMiOlt7InN0cmVldCI6IiIsImFkbWluQXJlYTYiOiIiLCJhZG1pbkFyZWE1IjoiIiwiYWRtaW5BcmVhNCI6IiIsImFkbWluQXJlYTMiOiIiLCJhZG1pbkFyZWExIjoiVVMiLCJwb3N0YWxDb2RlIjoiIiwiZ2VvY29kZVF1YWxpdHlDb2RlIjoiQTFYQVgiLCJnZW9jb2RlUXVhbGl0eSI6IkNPVU5UUlkiLCJkcmFnUG9pbnQiOmZhbHNlLCJzaWRlT2ZTdHJlZXQiOiJOIiwibGlua0lkIjoiMCIsInVua25vd25JbnB1dCI6IiIsInR5cGUiOiJzIiwibGF0TG5nIjp7ImxhdCI6MzguODkwMzcsImxuZyI6LTc3LjAzMTk2fSwiZGlzcGxheUxhdExuZyI6eyJsYXQiOjM4Ljg5MDM3LCJsbmciOi03Ny4wMzE5Nn0sIm1hcFVybCI6IiIsInNvdXJjZSI6IkZBTExCQUNLIn1dfV19
+  recorded_at: Tue, 16 Jan 2024 01:30:30 GMT
+recorded_with: VCR 6.2.0
