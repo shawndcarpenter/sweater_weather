@@ -3,13 +3,14 @@ class  Api::V0::RoadTripsController < ApplicationController
 
   def create
     user = User.find_by(api_key: params[:api_key])
-
+    
     if !params[:origin] || !params[:destination]
       missing_parameters_response(params)
     elsif !valid_location?(params[:origin]) || !valid_location?(params[:destination])
       invalid_locations_response
     elsif user
-      road_trip = RoadTripFacade.new(params[:origin], params[:destination]).road_trip
+      destination_geocode = GeolocationFacade.new(params[:destination]).geocode 
+      road_trip = RoadTripFacade.new(params[:origin], params[:destination], destination_geocode).road_trip
 
       render json: 
         RoadTripSerializer.new(road_trip), status: 200
