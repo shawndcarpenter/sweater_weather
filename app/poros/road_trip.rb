@@ -1,11 +1,12 @@
 class RoadTrip
-  attr_reader :start_city, :end_city, :travel_time, :weather_at_eta
+  attr_reader :start_city, :end_city, :travel_time, :weather_at_eta, :id
 
-  def initialize(routing_json, origin, destination)
+  def initialize(origin, destination, travel_time, weather)
     @start_city = origin
     @end_city = destination
-    @travel_time = routing_json[:route][:formattedTime]
-    @weather_at_eta = WeatherAtEta.new(routing_json[:route][:realTime])
+    @travel_time = travel_time
+    @weather_at_eta = weather
+    @id = nil
   end
 
   # find the travel time
