@@ -7,7 +7,7 @@ RSpec.describe "Road Trips", type: :request do
                           password: "password",
                           password_confirmation: "password",
                           api_key: "t1h2i3s4_i5s6_l7e8g9i10t11")
-      # binding.pry                    
+                   
       post "/api/v0/road_trip", params: {
         "origin": "Cincinatti,OH",
         "destination": "Chicago,IL",
