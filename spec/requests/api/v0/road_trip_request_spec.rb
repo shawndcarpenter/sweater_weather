@@ -33,9 +33,11 @@ RSpec.describe "Road Trips", type: :request do
 
       expect(result[:data][:attributes]).to have_key(:start_city)
       expect(result[:data][:attributes][:start_city]).to be_a String
+      expect(result[:data][:attributes][:start_city]).to eq("Cincinatti,OH")
 
       expect(result[:data][:attributes]).to have_key(:end_city)
       expect(result[:data][:attributes][:end_city]).to be_a String
+      expect(result[:data][:attributes][:end_city]).to eq("Chicago,IL")
 
       expect(result[:data][:attributes]).to have_key(:travel_time)
       expect(result[:data][:attributes][:travel_time]).to be_a String
@@ -55,7 +57,7 @@ RSpec.describe "Road Trips", type: :request do
   end
 
   describe "sad paths" do
-    it "will return unauthorized if no users found with api_key" do
+    it "will return unauthorized if no users found with api_key", :vcr do
       user = User.create!(email: "whatever@example.com",
       password: "password",
       password_confirmation: "password",
@@ -66,7 +68,93 @@ RSpec.describe "Road Trips", type: :request do
       "destination": "Chicago,IL",
       "api_key": "not_api_key"
       }, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(401)
+  
+      data = JSON.parse(response.body, symbolize_names: true)
+  
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Unauthorized: please provide a valid api_key")
     end
 
+    it "will return unauthorized if no api_key is provided", :vcr do
+      user = User.create!(email: "whatever@example.com",
+      password: "password",
+      password_confirmation: "password",
+      api_key: "t1h2i3s4_i5s6_l7e8g9i10t11")
+                
+      post "/api/v0/road_trip", params: {
+      "origin": "Cincinatti,OH",
+      "destination": "Chicago,IL"
+      }, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(401)
+  
+      data = JSON.parse(response.body, symbolize_names: true)
+  
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Unauthorized: please provide a valid api_key")
+    end
+
+    it "Must have origin", :vcr do
+      user = User.create!(email: "whatever@example.com",
+      password: "password",
+      password_confirmation: "password",
+      api_key: "t1h2i3s4_i5s6_l7e8g9i10t11")
+                
+      post "/api/v0/road_trip", params: {
+      "destination": "Chicago,IL",
+      "api_key": "t1h2i3s4_i5s6_l7e8g9i10t11"
+      }, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+  
+      data = JSON.parse(response.body, symbolize_names: true)
+  
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: origin can't be blank")
+    end
+
+    it "Must have all fields", :vcr do
+      user = User.create!(email: "whatever@example.com",
+      password: "password",
+      password_confirmation: "password",
+      api_key: "t1h2i3s4_i5s6_l7e8g9i10t11")
+                
+      post "/api/v0/road_trip", params: {
+      }, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+  
+      data = JSON.parse(response.body, symbolize_names: true)
+  
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: origin can't be blank, destination can't be blank, api_key can't be blank")
+    end
+
+    it "must have real locations", :vcr do
+      user = User.create!(email: "whatever@example.com",
+      password: "password",
+      password_confirmation: "password",
+      api_key: "t1h2i3s4_i5s6_l7e8g9i10t11")
+                
+      post "/api/v0/road_trip", params: {
+      "origin": "wfowenoeneroifnionf1233",
+      "destination": "Chicago,IL",
+      "api_key": "t1h2i3s4_i5s6_l7e8g9i10t11"
+      }, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+  
+      data = JSON.parse(response.body, symbolize_names: true)
+  
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: origin and destination must be real places")
+    end
   end
 end
