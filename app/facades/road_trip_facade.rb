@@ -43,8 +43,8 @@ class RoadTripFacade
     if travel_time == "impossible"
       "n/a"
     else
-      time_elapsed = routing_json[:route][:realTime]
-      epoch = weather_json[:location][:localtime_epoch]
+      time_elapsed = routing_json[:route][:time]
+      epoch = Time.current.to_i
       time_elapsed + epoch
     end
   end
