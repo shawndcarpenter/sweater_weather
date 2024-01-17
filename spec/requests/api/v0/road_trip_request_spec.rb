@@ -19,7 +19,7 @@ RSpec.describe "Road Trips", type: :request do
 
         expect(response).to be_successful
         
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
         result = JSON.parse(response.body, symbolize_names: true)
 
         expect(result).to have_key(:data)
@@ -67,7 +67,7 @@ RSpec.describe "Road Trips", type: :request do
 
         expect(response).to be_successful
         
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
         result = JSON.parse(response.body, symbolize_names: true)
 
         expect(result).to have_key(:data)
@@ -193,7 +193,7 @@ RSpec.describe "Road Trips", type: :request do
 
         expect(response).to be_successful
         
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
         result = JSON.parse(response.body, symbolize_names: true)
 
         expect(result).to have_key(:data)
