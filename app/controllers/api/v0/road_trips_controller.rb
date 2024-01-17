@@ -8,7 +8,7 @@ class  Api::V0::RoadTripsController < ApplicationController
     elsif !valid_location?(params[:origin]) || !valid_location?(params[:destination])
       invalid_locations_response
     elsif user && params[:api_key]
-      destination_geocode = GeolocationFacade.new(params[:destination]).geocode 
+      destination_geocode = get_geocoded_location(params[:destination])
       road_trip = RoadTripFacade.new(params[:origin], params[:destination], destination_geocode).road_trip
 
       render json: 
@@ -21,12 +21,8 @@ class  Api::V0::RoadTripsController < ApplicationController
   private
 
   def invalid_locations_response
-    render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: origin and destination must be real places", 422))
+    render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: origin and destination must be real places. Try entering locations in the format of 'City,CO'", 422))
     .serialize_json, status: 422
-  end
-
-  def valid_location?(location)
-    GeolocationFacade.new(location).geocode.class == Geocode
   end
 
   def missing_parameters_response(params)
