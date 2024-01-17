@@ -1,16 +1,15 @@
 class  Api::V0::WeatherController < ApplicationController
   def forecast
+    geo = get_geocoded_location(params[:location])
+
     if !params[:location]
       missing_location_response
+    elsif geo.class == Geocode
+      render json: 
+        ForecastSerializer.new(get_forecast(geo.latitude, 
+                                            geo.longitude))
     else
-      geo = get_geocoded_location(params[:location])
-      if geo.class == Geocode
-        render json: 
-          ForecastSerializer.new(get_forecast(geo.latitude, 
-                                              geo.longitude))
-      else
-        invalid_locations_response
-      end
+      invalid_locations_response
     end
   end
   
