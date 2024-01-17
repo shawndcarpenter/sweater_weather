@@ -7,12 +7,16 @@ class  Api::V0::SessionsController < ApplicationController
     elsif user && user.authenticate(params[:password])
       render json: UserSerializer.new(user), status: 201
     else
-      render json: ErrorSerializer.new(ErrorMessage.new("Email or password did not match our records", 422))
-      .serialize_json, status: 422
+      no_matching_records_response
     end
   end
 
   private
+  
+  def no_matching_records_response
+    render json: ErrorSerializer.new(ErrorMessage.new("Email or password did not match our records", 422))
+    .serialize_json, status: 422
+  end
 
   def missing_parameters_response(params)
     message = []

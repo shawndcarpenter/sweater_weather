@@ -1,5 +1,4 @@
 class  Api::V0::RoadTripsController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, with: :invalid_response
 
   def create
     user = User.find_by(api_key: params[:api_key])
@@ -13,7 +12,7 @@ class  Api::V0::RoadTripsController < ApplicationController
       road_trip = RoadTripFacade.new(params[:origin], params[:destination], destination_geocode).road_trip
 
       render json: 
-        RoadTripSerializer.new(road_trip), status: 200
+        RoadTripSerializer.new(road_trip), status: 201
     else
       not_allowed_response
     end
