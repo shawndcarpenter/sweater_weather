@@ -40,9 +40,7 @@ class RoadTripFacade
   end
 
   def get_arrival_time(travel_time, routing_json, weather_json)
-    if travel_time == "impossible"
-      "n/a"
-    else
+    if travel_time != "impossible"
       time_elapsed = routing_json[:route][:time]
       epoch = Time.current.to_i
       time_elapsed + epoch

@@ -4,10 +4,10 @@ Rails.application.routes.draw do
     namespace :v0 do
       get "/forecast", to: "weather#forecast"
 
-      post "/users", to: "users#create"
-
-      post "/sessions", to: "sessions#create"
-
+      resources :users, only: [:create]
+      # post "/users", to: "users#create"
+      resources :sessions, only: [:create]
+      # post "/sessions", to: "sessions#create"
       post "/road_trip", to: "road_trips#create"
     end
   end

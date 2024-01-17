@@ -69,7 +69,7 @@ RSpec.describe "Road Trips", type: :request do
         
         expect(response.status).to eq(200)
         result = JSON.parse(response.body, symbolize_names: true)
-        # binding.pry
+
         expect(result).to have_key(:data)
         expect(result[:data]).to be_a Hash
 
@@ -94,6 +94,7 @@ RSpec.describe "Road Trips", type: :request do
         expect(result[:data][:attributes][:travel_time]).to be_a String
 
         expect(result[:data][:attributes]).to have_key(:weather_at_eta)
+
         expect(result[:data][:attributes][:weather_at_eta]).to be_a Hash
 
         expect(result[:data][:attributes][:weather_at_eta]).to have_key(:datetime)

@@ -54,13 +54,14 @@ RSpec.describe "User login", type: :request do
 
   describe "sad paths" do
     before :each do
-
       post "/api/v0/users", params: {
         "email": "paul@example.com",
         "password": "password",
         "password_confirmation": "password"
         }, as: :json
-
+      
+      expect(response).to be_successful
+      expect(response.status).to eq(201)
     end
   end
 

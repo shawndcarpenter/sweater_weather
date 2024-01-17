@@ -8,13 +8,4 @@ class RoadTrip
     @weather_at_eta = weather
     @id = nil
   end
-
-  # find the travel time
-  # find the localtime_epoch for forecast
-  # add travel time to localtime to get datetime
-  # find daily_weather with time_epoch that matches
-
-  def time_zone
-
-  end
 end

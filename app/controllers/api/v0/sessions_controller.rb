@@ -1,6 +1,4 @@
 class  Api::V0::SessionsController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, with: :invalid_response
-
   def create
     user = User.find_by(email: params[:email])
 
@@ -27,11 +25,6 @@ class  Api::V0::SessionsController < ApplicationController
     end
 
     render json: ErrorSerializer.new(ErrorMessage.new("Validation failed: #{message.join(", ")}", 422))
-    .serialize_json, status: 422
-  end
-
-  def invalid_response(exception)
-    render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 422))
     .serialize_json, status: 422
   end
 end
