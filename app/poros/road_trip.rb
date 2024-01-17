@@ -38,13 +38,6 @@ class RoadTrip < WeatherAtEta
   end
 
   def create_weather_at_eta_object(weather_json, arrival_time)
-    weather_json[:forecast][:forecastday].each do |daily_weather|
-      daily_weather[:hour].map do |hourly_weather|
-        if (hourly_weather[:time_epoch]..hourly_weather[:time_epoch] + 3599).include?(arrival_time)
-          @weather = WeatherAtEta.new(arrival_time, hourly_weather, weather_json)
-        end
-      end
-    end
-    @weather
+    WeatherFinderJob.perform_now(weather_json, arrival_time)
   end
 end

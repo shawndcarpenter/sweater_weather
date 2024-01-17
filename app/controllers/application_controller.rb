@@ -9,10 +9,10 @@ class ApplicationController < ActionController::API
   end
 
   def get_geocoded_location(location)
-    geocoded_location = GeolocationFacade.new(location).geocode
+    LocationFinderJob.perform_now(location)
   end
 
   def valid_location?(location)
-    GeolocationFacade.new(location).geocode.class == Geocode
+    LocationValidatorJob.perform_now(location)
   end
 end

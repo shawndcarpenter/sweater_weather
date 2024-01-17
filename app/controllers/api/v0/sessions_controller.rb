@@ -1,6 +1,6 @@
 class  Api::V0::SessionsController < ApplicationController
   def create
-    user = User.find_by(email: params[:email])
+    user = UserFinderJob.perform_now(params[:email])
 
     if !params[:email] || !params[:password]
       missing_parameters_response(params)

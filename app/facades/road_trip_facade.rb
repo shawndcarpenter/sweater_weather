@@ -15,14 +15,10 @@ class RoadTripFacade
   private
 
   def get_location_json(origin, destination)
-    location_service = LocationService.new
-
-    location_service.find_route(@origin, @destination)
+    RouteFinderJob.perform_now(origin, destination)
   end
 
   def get_weather_json(destination_geocode)
-    weather_service = WeatherService.new
-    
-    weather_service.find_weather(destination_geocode.latitude, destination_geocode.longitude)
+    LocationWeatherFinderJob.perform_now(destination_geocode)
   end
 end
