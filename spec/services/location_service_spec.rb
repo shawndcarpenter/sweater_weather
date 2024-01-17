@@ -26,5 +26,28 @@ describe LocationService do
       expect(location[:results].first[:locations].first).to have_key(:latLng)
       expect(location[:results].first[:locations].first[:latLng]).to be_a Hash
     end
+
+    it "gets route" do
+      location = LocationService.new.find_route("Pueblo,CO", "Denver,CO")
+      expect(location).to be_a Hash
+
+      expect(location).to have_key(:info)
+      expect(location[:info]).to be_a Hash
+
+      expect(location).to have_key(:route)
+      expect(location[:route]).to be_a Hash
+
+      expect(location[:route]).to have_key(:sessionId)
+      expect(location[:route][:sessionId]).to be_a String
+
+      expect(location[:route]).to have_key(:time)
+      expect(location[:route][:time]).to be_a Integer
+
+      expect(location[:route]).to have_key(:distance)
+      expect(location[:route][:distance]).to be_a Float
+
+      expect(location[:route]).to have_key(:formattedTime)
+      expect(location[:route][:formattedTime]).to be_a String
+    end
   end
 end
