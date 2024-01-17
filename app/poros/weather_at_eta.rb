@@ -7,7 +7,8 @@ class WeatherAtEta
     @condition = hourly_weather[:condition][:text]
   end
 
-  
+  private
+
   def readable_datetime(arrival_time, weather_json)
     Time.zone = weather_json[:location][:tz_id] # find local time zone
     time_array = Time.zone.at(arrival_time).to_fs.split(" ") # find time at time zone, turn into string

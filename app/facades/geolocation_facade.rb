@@ -8,9 +8,9 @@ class GeolocationFacade
     json = service.find_lat_and_lon(@location)
 
     if location_invalid?(json)
-      @geocode = ErrorMessage.new("No locations found", 422)
+      ErrorMessage.new("No locations found", 422)
     else
-      @geocode = Geocode.new(json)
+      Geocode.new(json)
     end
   end
 
