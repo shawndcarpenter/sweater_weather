@@ -1,4 +1,8 @@
+require "connectable.rb"
+
 class LocationService
+  include Connectable
+
   def conn
     Faraday.new(url: "https://www.mapquestapi.com/") do |faraday|
       faraday.headers["key"] = Rails.application.credentials.map_quest[:key]
@@ -6,12 +10,10 @@ class LocationService
   end
 
   def find_lat_and_lon(location)
-    response = conn.get("geocoding/v1/address?location=#{location}")
-    JSON.parse(response.body, symbolize_names: true)
+    get_url("geocoding/v1/address?location=#{location}") 
   end
 
   def find_route(origin, destination)
-    response = conn.get("directions/v2/route?from=#{origin}&to=#{destination}")
-    JSON.parse(response.body, symbolize_names: true)
+    get_url("directions/v2/route?from=#{origin}&to=#{destination}")
   end
 end
