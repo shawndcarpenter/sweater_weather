@@ -1,5 +1,5 @@
-class  Api::V0::WeatherController < ApplicationController
-  def forecast
+class  Api::V0::ForecastsController < ApplicationController
+  def show
     geo = get_geocoded_location(params[:location])
 
     if !params[:location]
