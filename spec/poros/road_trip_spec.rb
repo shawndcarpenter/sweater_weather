@@ -21,6 +21,7 @@ RSpec.describe RoadTrip do
       expect(@road_trip).to respond_to(:travel_time)
       
       expect(@road_trip).to respond_to(:weather_at_eta)
+      expect(@road_trip.weather_at_eta).to be_a WeatherAtEta
 
       expect(@road_trip).to respond_to(:id)
     end

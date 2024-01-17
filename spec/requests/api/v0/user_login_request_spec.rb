@@ -63,65 +63,66 @@ RSpec.describe "User login", type: :request do
       expect(response).to be_successful
       expect(response.status).to eq(201)
     end
-  end
+  
 
-  it "must have email and password" do
-    post "/api/v0/sessions", params: {}
+    it "must have email and password" do
+      post "/api/v0/sessions", params: {}
 
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
 
-    data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[:errors]).to be_a(Array)
-    expect(data[:errors].first[:detail]).to eq("Validation failed: email can't be blank, password can't be blank")
-  end
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: email can't be blank, password can't be blank")
+    end
 
-  it "must have email" do
-    post "/api/v0/sessions", params: {"password": "password"}, as: :json
+    it "must have email" do
+      post "/api/v0/sessions", params: {"password": "password"}, as: :json
 
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
 
-    data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[:errors]).to be_a(Array)
-    expect(data[:errors].first[:detail]).to eq("Validation failed: email can't be blank")
-  end
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: email can't be blank")
+    end
 
-  it "must have password" do
-    post "/api/v0/sessions", params: {"email": "paul@example.com"}, as: :json
+    it "must have password" do
+      post "/api/v0/sessions", params: {"email": "paul@example.com"}, as: :json
 
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
 
-    data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[:errors]).to be_a(Array)
-    expect(data[:errors].first[:detail]).to eq("Validation failed: password can't be blank")
-  end
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Validation failed: password can't be blank")
+    end
 
-  it "must have valid email" do
-    post "/api/v0/sessions", params: {"email": "not_paul@example.com", "password": "password"}, as: :json
+    it "must have valid email" do
+      post "/api/v0/sessions", params: {"email": "not_paul@example.com", "password": "password"}, as: :json
 
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
 
-    data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[:errors]).to be_a(Array)
-    expect(data[:errors].first[:detail]).to eq("Email or password did not match our records")
-  end
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Email or password did not match our records")
+    end
 
-  it "must have valid password" do
-    post "/api/v0/sessions", params: {"email": "paul@example.com", "password": "not_password"}, as: :json
+    it "must have valid password" do
+      post "/api/v0/sessions", params: {"email": "paul@example.com", "password": "not_password"}, as: :json
 
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
 
-    data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[:errors]).to be_a(Array)
-    expect(data[:errors].first[:detail]).to eq("Email or password did not match our records")
+      expect(data[:errors]).to be_a(Array)
+      expect(data[:errors].first[:detail]).to eq("Email or password did not match our records")
+    end
   end
 end
