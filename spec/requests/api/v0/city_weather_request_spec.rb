@@ -151,7 +151,7 @@ RSpec.describe "Find weather for a city", type: :request do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data[:errors]).to be_a(Array)
-      expect(data[:errors].first[:detail]).to eq("Validation failed: location must be a real place")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: location must be a real place. Try entering location in the format of 'city,co'")
     end
 
     it "must have location", :vcr do

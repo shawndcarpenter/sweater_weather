@@ -181,7 +181,7 @@ RSpec.describe "Road Trips", type: :request do
         data = JSON.parse(response.body, symbolize_names: true)
     
         expect(data[:errors]).to be_a(Array)
-        expect(data[:errors].first[:detail]).to eq("Validation failed: origin and destination must be real places")
+        expect(data[:errors].first[:detail]).to eq("Validation failed: origin and destination must be real places. Try entering locations in the format of 'City,CO'")
       end
 
       it "must be routable", :vcr do
